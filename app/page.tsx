@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getPlayerLogs } from "../lib/playerLogs";
 
 export default function Home() {
   const [games, setGames] = useState<any[]>([]);
   const [rosters, setRosters] = useState<any>({});
+  const [playerLogs, setPlayerLogs] = useState<any>({});
+  const [loadingLogs, setLoadingLogs] = useState(false);
 const [openGame, setOpenGame] = useState<string | null>(null);
 
   useEffect(() => {
@@ -70,6 +73,7 @@ const [openGame, setOpenGame] = useState<string | null>(null);
     overflow: "hidden",
   }}
 >
+  
   <button
 onClick={async () => {
   if (isOpen) {
@@ -87,6 +91,42 @@ onClick={async () => {
     const awayRoster = await loadRoster(
       away.team.id
     );
+
+    const players = [
+  ...(homeRoster?.athletes || []),
+  ...(awayRoster?.athletes || []),
+];
+
+const results = await Promise.all(
+  players.map(async (player: any) => {
+    try {
+      const logs = await getPlayerLogs(
+        String(player.id)
+      );
+
+      return {
+        id: player.id,
+        logs,
+      };
+    } catch {
+      return {
+        id: player.id,
+        logs: [],
+      };
+    }
+  })
+);
+
+const logsMap: any = {};
+
+results.forEach((result) => {
+  logsMap[result.id] = result.logs;
+});
+
+setPlayerLogs((prev: any) => ({
+  ...prev,
+  ...logsMap,
+}));
 
     setRosters((prev: any) => ({
       ...prev,
@@ -123,11 +163,432 @@ onClick={async () => {
 <div>
   <h3>Away Team</h3>
 
-  {(rosters[game.id]?.away || []).map(
+  {(rosters[game.id]?.away || [])
+.filter((player: any) => {
+  const logs = playerLogs[player.id];
+  const recentLogs = logs.slice(0, 10);
+
+  if (!logs?.length) {
+    return false;
+  }
+
+  const avgMinutes =
+    logs.reduce(
+      (sum: number, game: any) =>
+        sum + game.min,
+      0
+    ) / logs.length;
+
+  return avgMinutes >= 30;
+})
+  .map(
     (player: any) => (
-      <div key={player.id}>
-        {player.displayName}
+
+
+<div
+  key={player.id}
+  style={{
+    marginBottom: "16px",
+    padding: "12px",
+    border: "1px solid #374151",
+    borderRadius: "8px",
+  }}
+>
+
+<div key={player.id}>
+  {(() => {
+    const logs = playerLogs[player.id] || [];
+    const recentLogs = logs.slice(0, 10);
+
+    const avgMinutes = recentLogs.length
+      ? (
+          recentLogs.reduce(
+            (sum: number, game: any) =>
+              sum + game.min,
+            0
+          ) / recentLogs.length
+        ).toFixed(1)
+      : "0.0";
+
+    return (
+      <>
+        {player.displayName} | {avgMinutes} MPG
+      </>
+    );
+  })()}
+</div>
+
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  PTS
+
+  {[
+    20, 25, 30, 35, 40,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.pts >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
       </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  REB
+
+  {[
+    8, 10, 12, 14, 16,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.reb >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  AST
+
+  {[
+    8, 10, 12, 14,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.ast >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  3PM
+
+  {[
+    4, 5, 6, 7,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.threes >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  PRA
+
+  {[
+    40, 45, 50, 55, 60,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.pts +
+              game.reb +
+              game.ast >=
+            line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+</div>
+
     )
   )}
 
@@ -139,11 +600,430 @@ onClick={async () => {
     Home Team
   </h3>
 
-  {(rosters[game.id]?.home || []).map(
+  {(rosters[game.id]?.home || [])
+  .filter((player: any) => {
+    const logs = playerLogs[player.id];
+    const recentLogs = logs.slice(0, 10);
+
+    if (!logs?.length) {
+      return false;
+    }
+
+    const avgMinutes =
+      logs.reduce(
+        (sum: number, game: any) =>
+          sum + game.min,
+        0
+      ) / logs.length;
+
+    return avgMinutes >= 30;
+  })
+  .map(
     (player: any) => (
-      <div key={player.id}>
-        {player.displayName}
+
+<div
+  key={player.id}
+  style={{
+    marginBottom: "16px",
+    padding: "12px",
+    border: "1px solid #374151",
+    borderRadius: "8px",
+  }}
+>
+
+<div key={player.id}>
+  {(() => {
+    const logs = playerLogs[player.id] || [];
+    const recentLogs = logs.slice(0, 10);
+
+    const avgMinutes = recentLogs.length
+      ? (
+          recentLogs.reduce(
+            (sum: number, game: any) =>
+              sum + game.min,
+            0
+          ) / recentLogs.length
+        ).toFixed(1)
+      : "0.0";
+
+    return (
+      <>
+        {player.displayName} | {avgMinutes} MPG
+      </>
+    );
+  })()}
+</div>
+
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  PTS
+
+  {[
+    20, 25, 30, 35, 40,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.pts >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
       </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  REB
+
+  {[
+    8, 10, 12, 14, 16,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.reb >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  AST
+
+  {[
+    8, 10, 12, 14,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.ast >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  3PM
+
+  {[
+    4, 5, 6, 7,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.threes >= line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+<div
+  style={{
+    marginTop: "8px",
+    fontWeight: "bold",
+  }}
+>
+  PRA
+
+  {[
+    40, 45, 50, 55, 60,
+  ]
+    .map((line) => {
+      const recentLogs =
+        playerLogs[player.id]
+          ?.slice(0, 10) || [];
+
+      const hits =
+        recentLogs.filter(
+          (game: any) =>
+            game.pts +
+              game.reb +
+              game.ast >=
+            line
+        ).length;
+
+      return {
+        line,
+        hits,
+      };
+    })
+.filter(
+  (stat) =>
+    stat.hits === 0 ||
+    stat.hits === 1
+)
+.filter((stat, index, arr) => {
+  if (stat.hits === 1) {
+    return (
+      stat ===
+      arr.filter(
+        (s) => s.hits === 1
+      ).slice(-1)[0]
+    );
+  }
+
+  const highestOne =
+    arr.filter(
+      (s) => s.hits === 1
+    ).slice(-1)[0];
+
+  if (!highestOne) {
+    return (
+      stat ===
+      arr.find(
+        (s) => s.hits === 0
+      )
+    );
+  }
+
+  return (
+    stat.hits === 0 &&
+    stat.line > highestOne.line &&
+    stat ===
+      arr.find(
+        (s) =>
+          s.hits === 0 &&
+          s.line > highestOne.line
+      )
+  );
+})
+.map((stat) => (
+      <div key={stat.line}>
+        {stat.line}+ : {stat.hits}/10
+      </div>
+    ))}
+</div>
+</div>
     )
   )}
 </div>
