@@ -161,7 +161,15 @@ setPlayerLogs((prev: any) => ({
       }}
     >
 <div>
-  <h3>Away Team</h3>
+  <h3
+  style={{
+    color: "#22c55e",
+    fontSize: "28px",
+    marginBottom: "16px",
+  }}
+>
+  Away Team
+</h3>
 
   {(rosters[game.id]?.away || [])
 .filter((player: any) => {
@@ -221,18 +229,52 @@ return (
         ).toFixed(1)
       : "0.0";
 
-    return (
-      <>
-        {player.displayName} | {avgMinutes} MPG
-      </>
-    );
+return (
+  <div
+    style={{
+      fontSize: "20px",
+      fontWeight: "bold",
+      marginBottom: "12px",
+    }}
+  >
+    <span
+      style={{
+        color: "#f97316",
+      }}
+    >
+      {player.displayName}
+    </span>
+
+    {" | "}
+
+    <span
+      style={{
+        color: "#38bdf8",
+      }}
+    >
+      {avgMinutes} MPG
+    </span>
+  </div>
+);
   })()}
 </div>
 
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    display: "grid",
+    gridTemplateColumns:
+      "repeat(5, minmax(140px, 1fr))",
+    gap: "12px",
+    marginTop: "12px",
+  }}
+>
+
+<div
+  style={{
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   PTS
@@ -315,8 +357,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   REB
@@ -398,8 +442,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   AST
@@ -481,8 +527,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   3PM
@@ -564,8 +612,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   PRA
@@ -649,17 +699,21 @@ return (
     ))}
 </div>
 </div>
-
+</div>
     )
   )}
 
-  <h3
-    style={{
-      marginTop: "24px",
-    }}
-  >
-    Home Team
-  </h3>
+<h3
+  style={{
+    color: "#22c55e",
+    fontSize: "28px",
+    marginTop: "24px",
+    marginBottom: "16px",
+  }}
+>
+  Home Team
+</h3>
+
 
   {(rosters[game.id]?.home || [])
   .filter((player: any) => {
@@ -718,18 +772,52 @@ return (
         ).toFixed(1)
       : "0.0";
 
-    return (
-      <>
-        {player.displayName} | {avgMinutes} MPG
-      </>
-    );
+return (
+  <div
+    style={{
+      fontSize: "20px",
+      fontWeight: "bold",
+      marginBottom: "12px",
+    }}
+  >
+    <span
+      style={{
+        color: "#f97316",
+      }}
+    >
+      {player.displayName}
+    </span>
+
+    {" | "}
+
+    <span
+      style={{
+        color: "#38bdf8",
+      }}
+    >
+      {avgMinutes} MPG
+    </span>
+  </div>
+);
   })()}
 </div>
 
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    display: "grid",
+    gridTemplateColumns:
+      "repeat(5, minmax(140px, 1fr))",
+    gap: "12px",
+    marginTop: "12px",
+  }}
+>
+
+<div
+  style={{
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   PTS
@@ -812,8 +900,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   REB
@@ -895,8 +985,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   AST
@@ -978,8 +1070,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   3PM
@@ -1061,8 +1155,10 @@ return (
 </div>
 <div
   style={{
-    marginTop: "8px",
-    fontWeight: "bold",
+    background: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "8px",
+    padding: "8px",
   }}
 >
   PRA
@@ -1143,7 +1239,9 @@ return (
   {stat.hits === 0 ? "🧊" : "🔴"}{" "}
   {stat.line}+ : {stat.hits}/10
 </div>
+
     ))}
+</div>
 </div>
 </div>
     )
