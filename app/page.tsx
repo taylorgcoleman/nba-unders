@@ -179,7 +179,18 @@ setPlayerLogs((prev: any) => ({
       0
     ) / logs.length;
 
-  return avgMinutes >= 30;
+  const isActive =
+  player?.status?.type === "active";
+
+const healthy =
+  !player?.injuries ||
+  player.injuries.length === 0;
+
+return (
+  avgMinutes >= 30 &&
+  isActive &&
+  healthy
+);
 })
   .map(
     (player: any) => (
@@ -287,9 +298,19 @@ setPlayerLogs((prev: any) => ({
 })
 .map((stat) => (
 
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -360,9 +381,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -433,9 +464,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -506,9 +547,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -582,9 +633,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 </div>
@@ -616,7 +677,18 @@ setPlayerLogs((prev: any) => ({
         0
       ) / logs.length;
 
-    return avgMinutes >= 30;
+    const isActive =
+  player?.status?.type === "active";
+
+const healthy =
+  !player?.injuries ||
+  player.injuries.length === 0;
+
+return (
+  avgMinutes >= 30 &&
+  isActive &&
+  healthy
+);
   })
   .map(
     (player: any) => (
@@ -723,9 +795,19 @@ setPlayerLogs((prev: any) => ({
 })
 .map((stat) => (
 
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -796,9 +878,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -869,9 +961,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -942,9 +1044,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 <div
@@ -1018,9 +1130,19 @@ setPlayerLogs((prev: any) => ({
   );
 })
 .map((stat) => (
-      <div key={stat.line}>
-        {stat.line}+ : {stat.hits}/10
-      </div>
+<div
+  key={stat.line}
+  style={{
+    color:
+      stat.hits === 0
+        ? "#38bdf8"
+        : "#ef4444",
+    fontWeight: "bold",
+  }}
+>
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+  {stat.line}+ : {stat.hits}/10
+</div>
     ))}
 </div>
 </div>
