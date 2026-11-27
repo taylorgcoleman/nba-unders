@@ -7,17 +7,22 @@ export default function Home() {
   const [games, setGames] = useState<any[]>([]);
   const [rosters, setRosters] = useState<any>({});
   const [playerLogs, setPlayerLogs] = useState<any>({});
+  const [scheduleDate, setScheduleDate] = useState("");
   const [loadingLogs, setLoadingLogs] = useState(false);
 const [openGame, setOpenGame] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function loadGames() {
-      const today = new Date();
+useEffect(() => {
+  async function loadGames() {
+    const today = new Date();
+
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
 
       const dateParam =
-        today.getFullYear().toString() +
-        String(today.getMonth() + 1).padStart(2, "0") +
-        String(today.getDate()).padStart(2, "0");
+        date.getFullYear().toString() +
+        String(date.getMonth() + 1).padStart(2, "0") +
+        String(date.getDate()).padStart(2, "0");
 
       const res = await fetch(
         `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dateParam}`
@@ -25,11 +30,25 @@ const [openGame, setOpenGame] = useState<string | null>(null);
 
       const data = await res.json();
 
-      setGames(data.events || []);
+      if (data.events?.length > 0) {
+setScheduleDate(
+  date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
+);
+        setGames(data.events);
+        return;
+      }
     }
 
-    loadGames();
-  }, []);
+    setGames([]);
+  }
+
+  loadGames();
+}, []);
 
   async function loadRoster(teamId: string) {
   const res = await fetch(
@@ -49,6 +68,12 @@ const [openGame, setOpenGame] = useState<string | null>(null);
       }}
     >
       <h1>NBA Under Dashboard</h1>
+
+      {scheduleDate && (
+  <p style={{ color: "#94a3b8" }}>
+    Showing games for {scheduleDate}
+  </p>
+)}
 
       {games.map((game) => {
         const competition = game.competitions?.[0];
