@@ -220,7 +220,7 @@ const healthy =
   player.injuries.length === 0;
 
 return (
-  avgMinutes >= 30 &&
+  avgMinutes >= 28 &&
   isActive &&
   healthy
 );
@@ -653,7 +653,7 @@ const healthy =
   player.injuries.length === 0;
 
 return (
-  avgMinutes >= 30 &&
+  avgMinutes >= 28 &&
   isActive &&
   healthy
 );
