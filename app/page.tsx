@@ -286,10 +286,9 @@ return (
 
 <div
   style={{
-    display: "grid",
-    gridTemplateColumns:
-      "repeat(5, minmax(140px, 1fr))",
-    gap: "12px",
+display: "flex",
+flexWrap: "wrap",
+gap: "8px",
     marginTop: "12px",
   }}
 >
@@ -299,7 +298,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   PTS
@@ -385,7 +384,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   REB
@@ -470,7 +469,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   AST
@@ -555,7 +554,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   3PM
@@ -640,7 +639,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   PRA
@@ -829,10 +828,9 @@ return (
 
 <div
   style={{
-    display: "grid",
-    gridTemplateColumns:
-      "repeat(5, minmax(140px, 1fr))",
-    gap: "12px",
+display: "flex",
+flexWrap: "wrap",
+gap: "8px",
     marginTop: "12px",
   }}
 >
@@ -842,7 +840,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   PTS
@@ -928,7 +926,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   REB
@@ -1013,7 +1011,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   AST
@@ -1098,7 +1096,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   3PM
@@ -1183,7 +1181,7 @@ return (
     background: "#0f172a",
     border: "1px solid #334155",
     borderRadius: "8px",
-    padding: "8px",
+padding: "4px",
   }}
 >
   PRA
