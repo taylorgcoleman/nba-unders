@@ -304,7 +304,7 @@ padding: "4px",
   PTS
 
   {[
-    20, 25, 30, 35, 40,
+    10, 15, 20, 25, 30, 35, 40,
   ]
     .map((line) => {
       const recentLogs =
@@ -322,59 +322,37 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -390,7 +368,7 @@ padding: "4px",
   REB
 
   {[
-    8, 10, 12, 14, 16,
+    2, 4, 6, 8, 10, 12, 14, 16,
   ]
     .map((line) => {
       const recentLogs =
@@ -408,58 +386,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -475,7 +431,7 @@ padding: "4px",
   AST
 
   {[
-    8, 10, 12, 14,
+    2, 4, 6, 8, 10, 12, 14,
   ]
     .map((line) => {
       const recentLogs =
@@ -493,58 +449,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -560,7 +494,7 @@ padding: "4px",
   3PM
 
   {[
-    4, 5, 6, 7,
+    1, 2, 3, 4, 5, 6, 7,
   ]
     .map((line) => {
       const recentLogs =
@@ -578,58 +512,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -645,7 +557,7 @@ padding: "4px",
   PRA
 
   {[
-    40, 45, 50, 55, 60,
+    20, 25, 30, 35, 40, 45, 50, 55, 60,
   ]
     .map((line) => {
       const recentLogs =
@@ -666,58 +578,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -846,7 +736,7 @@ padding: "4px",
   PTS
 
   {[
-    20, 25, 30, 35, 40,
+    10, 15, 20, 25, 30, 35, 40,
   ]
     .map((line) => {
       const recentLogs =
@@ -864,59 +754,37 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -932,7 +800,7 @@ padding: "4px",
   REB
 
   {[
-    8, 10, 12, 14, 16,
+    2, 4, 6, 8, 10, 12, 14, 16,
   ]
     .map((line) => {
       const recentLogs =
@@ -950,59 +818,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
-  {stat.line}+ : {stat.hits}/10
+  {stat.hits === 0 ? "🧊" : "🔴"}{" "}{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}  {stat.line}+ : {stat.hits}/10
 </div>
     ))}
 </div>
@@ -1017,7 +862,7 @@ padding: "4px",
   AST
 
   {[
-    8, 10, 12, 14,
+    2, 4, 6, 8, 10, 12, 14
   ]
     .map((line) => {
       const recentLogs =
@@ -1035,58 +880,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -1102,7 +925,7 @@ padding: "4px",
   3PM
 
   {[
-    4, 5, 6, 7,
+    1, 2, 3, 4, 5, 6, 7,
   ]
     .map((line) => {
       const recentLogs =
@@ -1120,58 +943,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
     ))}
@@ -1187,7 +988,7 @@ padding: "4px",
   PRA
 
   {[
-    40, 45, 50, 55, 60,
+    20, 25, 30, 35, 40, 45, 50, 55, 60,
   ]
     .map((line) => {
       const recentLogs =
@@ -1208,58 +1009,36 @@ padding: "4px",
         hits,
       };
     })
-.filter(
-  (stat) =>
-    stat.hits === 0 ||
-    stat.hits === 1
-)
-.filter((stat, index, arr) => {
-  if (stat.hits === 1) {
-    return (
-      stat ===
-      arr.filter(
-        (s) => s.hits === 1
-      ).slice(-1)[0]
-    );
-  }
 
-  const highestOne =
-    arr.filter(
-      (s) => s.hits === 1
-    ).slice(-1)[0];
 
-  if (!highestOne) {
-    return (
-      stat ===
-      arr.find(
-        (s) => s.hits === 0
-      )
-    );
-  }
-
-  return (
-    stat.hits === 0 &&
-    stat.line > highestOne.line &&
-    stat ===
-      arr.find(
-        (s) =>
-          s.hits === 0 &&
-          s.line > highestOne.line
-      )
-  );
-})
 .map((stat) => (
 <div
   key={stat.line}
   style={{
-    color:
-      stat.hits === 0
-        ? "#38bdf8"
-        : "#ef4444",
+color:
+  stat.hits === 10
+    ? "#f97316"
+    : stat.hits >= 7
+    ? "#22c55e"
+    : stat.hits >= 4
+    ? "#eab308"
+    : stat.hits >= 1
+    ? "#ef4444"
+    : "#38bdf8",
     fontWeight: "bold",
   }}
 >
-  {stat.hits === 0 ? "🧊" : "🔴"}{" "}
+{
+  stat.hits === 10
+    ? "🔥"
+    : stat.hits >= 7
+    ? "🟢"
+    : stat.hits >= 4
+    ? "🟡"
+    : stat.hits >= 1
+    ? "🔴"
+    : "🧊"
+}
   {stat.line}+ : {stat.hits}/10
 </div>
 
